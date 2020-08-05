@@ -1,13 +1,10 @@
 import express from 'express';
+import routes from './routes';
 
 const app = express();
 
-
-app.get('/test', (request, response) => {
-    console.log('Acessou a rota');
-
-    return response.json({"response": "ok"});
-});
+app.use(express.json()); //para o express entender JSON(ajuda a reconhecer o body)
+app.use(routes);
 
 
 app.listen(3333);
