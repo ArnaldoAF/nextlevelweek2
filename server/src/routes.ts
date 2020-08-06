@@ -21,6 +21,7 @@ routes.post('/users', (request, response) => {
     return response.json({"response": "ok"});
 });
 
-routes.post('/classes', classesController.create)
+routes.post('/classes', classesController.create);
+routes.get('/classes', classesController.index);
 
 export default routes;
