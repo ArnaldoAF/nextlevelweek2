@@ -1,10 +1,12 @@
 import express from 'express';
 
 import ClassController from './controllers/classesController';
+import ConnectionController from './controllers/ConnectionsController';
 
 
 const routes = express.Router();
 const classesController = new ClassController();
+const connectionController = new ConnectionController();
 
 
 
@@ -21,7 +23,9 @@ routes.post('/users', (request, response) => {
     return response.json({"response": "ok"});
 });
 
-routes.post('/classes', classesController.create);
+routes.post('/classes', connectionController.create);
 routes.get('/classes', classesController.index);
+routes.post('/connections', connectionController.create);
+routes.get('/connections', connectionController.index);
 
 export default routes;
