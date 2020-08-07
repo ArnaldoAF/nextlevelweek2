@@ -14,6 +14,9 @@ interface ScheduleItemIterface {
 export default class ClassController {
     async index(request: Request, response: Response) {
         const filters = request.query;
+        console.log("INDEX ClassController");
+        console.log(request.body);
+
 
         const week_day = filters.week_day as string;
         const subject = filters.subject as string;
@@ -53,6 +56,9 @@ export default class ClassController {
             cost,
             schedule,
         } = request.body;
+        console.log("create ClassController");
+        
+        console.log(request.body);
     
         const trx = await db.transaction();
     
@@ -63,6 +69,8 @@ export default class ClassController {
                 whatsapp,
                 bio
             });
+
+            console.log("users");
         
             const user_id = insertedUserIds[0];
         
@@ -71,11 +79,12 @@ export default class ClassController {
                 cost,
                 user_id
             });
+            console.log("classes");
         
             const class_id = insertedClassesIds[0];
         
             const classSchedule = schedule.map((item:ScheduleItemIterface) => {
-                return {
+                return { 
                     class_id,
                     week_day: item.week_day,
                     from: convertHourToMinute(item.from),
@@ -84,11 +93,13 @@ export default class ClassController {
             });
         
             await trx('classes_schedule').insert(classSchedule);
+            console.log("classes_schedule");
         
             await trx.commit();
         
             return response.status(201).json({"response": "ok"});
         } catch (err) {
+            console.log("ERRO");
             console.log(err);
             await trx.rollback();
             return response.status(400).json({
