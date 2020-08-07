@@ -4,7 +4,7 @@ import db from "../database/connections";
 
 export default class ConnectionController {
      async index(request: Request, response: Response)  {
-        console.log("create ConnectionController");
+        console.log("index ConnectionController");
         
         console.log(request.body);
         const connections = await db('connections').count('* as total');

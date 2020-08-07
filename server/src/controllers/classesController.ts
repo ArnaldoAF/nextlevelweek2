@@ -11,6 +11,7 @@ interface ScheduleItemIterface {
     to: string
 }
 
+
 export default class ClassController {
     async index(request: Request, response: Response) {
         const filters = request.query;
