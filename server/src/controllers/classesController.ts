@@ -17,6 +17,7 @@ export default class ClassController {
         const filters = request.query;
         console.log("INDEX ClassController");
         console.log(request.body);
+        console.log(filters);
 
 
         const week_day = filters.week_day as string;
