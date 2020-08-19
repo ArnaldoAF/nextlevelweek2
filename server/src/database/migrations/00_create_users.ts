@@ -7,6 +7,9 @@ export async function up(knex: Knex) {
         table.string('avatar').notNullable();
         table.string('whatsapp').notNullable();
         table.string('bio').notNullable();
+        table.string('email').notNullable();
+        table.string('password').notNullable();
+        table.timestamp('created_at').defaultTo(knex.raw('CURRENT_TIMESTAMP')).notNullable();
     })
 }
 
