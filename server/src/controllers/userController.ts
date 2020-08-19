@@ -1,6 +1,8 @@
 import {Request, Response} from 'express';
 import db from '../database/connections';
 
+import bcrypt from 'bcrypt';
+
 
 export default class UserController {
     async register(request: Request, response: Response) {
@@ -12,9 +14,9 @@ export default class UserController {
         const bio = 'Fale um pouco sobre você';
 
         const userObj = {
-            name,
+            name, 
             email,
-            password,
+            password: await bcrypt.hash(password, 8), 
             avatar, 
             whatsapp,
             bio
@@ -35,7 +37,8 @@ export default class UserController {
         } catch(err) {
             console.log(err);
             return response.status(400).json({
-                "message": err
+                "message": "Erro ao inserir Usuario",
+                "body": err
             })
         }
     }

@@ -15,8 +15,11 @@
         "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback"
     },
     "dependencies": {
+        "@types/bcrypt": "^3.0.0",
         "@types/cors": "^2.8.7",
+        "bcrypt": "^5.0.0",
         "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
         "knex": "^0.21.2",
         "sqlite3": "^5.0.0"
     }
