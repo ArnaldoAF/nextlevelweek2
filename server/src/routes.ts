@@ -30,5 +30,6 @@ routes.get('/classes', classesController.index);
 routes.post('/connections', connectionController.create);
 routes.get('/connections', connectionController.index);
 routes.post('/register', userController.register);
+routes.post('/login', userController.login);
 
 export default routes;

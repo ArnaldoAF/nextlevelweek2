@@ -2,6 +2,17 @@ import {Request, Response} from 'express';
 import db from '../database/connections';
 
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+function compareHash(hash: string, base: string){
+    return bcrypt.compare(hash, base);
+}
+
+function generateToken(userId: string) {
+    return jwt.sign({ id: userId }, "secret", {
+        expiresIn: 86400
+      });
+}
 
 
 export default class UserController {
@@ -42,5 +53,38 @@ export default class UserController {
             })
         }
     }
+    
+    async login(request: Request, response: Response) {
+        const { email, password} = request.body;
+        console.log("UserController - Login")
+        try {
+            var userDataBase = await db('users').where('email','=', email).select('*');
+            
+            console.log("userDataBase", userDataBase);
+    
+            if(!userDataBase || userDataBase.length === 0) {
+                return response.status(400).json({message:"Usuario não exite"});
+            }
+
+            console.log(userDataBase[0]['password']);
+            console.log("compareHash", await compareHash(password, userDataBase[0]['password']));
+            
+            if(!(await compareHash(password, userDataBase[0]['password']))){
+                return response.status(400).json({ message: "Invalid password" });
+            }
+    
+            return response.json({
+                userDataBase,
+                token: generateToken(userDataBase[0]['id'])
+            })
+        } catch(err) {
+            console.log(err);
+            return response.status(400).json({
+                "message": "Erro ao fazer LOGIN",
+                "body": err
+            })
+        }
         
+
+    }
 }
