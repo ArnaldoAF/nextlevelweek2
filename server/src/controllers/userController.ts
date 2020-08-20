@@ -87,4 +87,22 @@ export default class UserController {
         
 
     }
+
+    async me(request: Request, response: Response) {
+        const { userId} = request.body;
+        try {
+            const user = await db('users').where('id','=',userId).select('*');
+
+            if(!user) return response.status(400).json({message: "User not fouded"});
+    
+            return response.status(200).json(user);
+        } catch(err) {
+            console.log(err);
+            return response.status(400).json({
+                "message": "Erro ao buscar usuario",
+                "body": err
+            })
+        }
+        
+    }
 }
