@@ -1,0 +1,70 @@
+#content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+#logo-area {
+    width: 50vw;
+    height: 100vh;
+    background-color: var(--color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-area {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+}
+
+#logo-container h2 {
+    color: var(--color-text-in-primary);
+    line-height: 3rem;
+    font-weight: 500;
+}
+
+#logo-container img {
+    max-width: 30rem;
+}
+
+#logo-area>img {
+    position: absolute;
+    z-index: 1;
+    flex: 1;
+    width: 50vw;
+    height: 70vh;
+}
+
+.password-options {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-footer {
+    display: flex;
+    justify-content: space-between;
+    width: 24vw;
+    margin-bottom: 2rem;
+}
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+}
+
+form h1 {
+    color: var(--color-text-title);
+}
+
+#text-free {
+    font-size: 1.3rem;
+    color: var(--color-text-complement);
+}
