@@ -56,7 +56,6 @@
 
 /* Interation */
 
-.input:valid,
 .input:focus,
 .input-box:focus {
     border-left: 2px solid var(--color-primary-light);
