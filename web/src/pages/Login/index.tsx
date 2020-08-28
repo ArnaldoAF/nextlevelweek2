@@ -7,6 +7,7 @@ import Input from '../../components/Input';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
+import MaterialInput from '../../components/MaterialInput';
 
 const Login:React.FC = () => {
     const [email, setEmail] = useState("");
@@ -30,20 +31,23 @@ const Login:React.FC = () => {
 
                 <form className="form-login"> 
                     <h1>Fazer Login</h1>
-                        <Input
+                    <div>
+                        <MaterialInput
                             name="email"
                             label="E-mail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
 
-                        <Input
+                        <MaterialInput
                             name="password"
                             label="Senha"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             type="password"
                         />
+                        </div>
+
 
                         <div className="password-options">
                         <Checkbox

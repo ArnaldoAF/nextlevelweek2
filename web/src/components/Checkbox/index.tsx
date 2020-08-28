@@ -7,8 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 
-const Checkbox
-: React.FC<InputProps> = (props, children) => {
+const Checkbox : React.FC<InputProps> = (props, children) => {
     const {
         label,
         name,
@@ -26,5 +25,4 @@ const Checkbox
     )
 }
 
-export default Checkbox
-;
+export default Checkbox;
