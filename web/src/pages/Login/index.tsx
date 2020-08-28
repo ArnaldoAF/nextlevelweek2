@@ -6,6 +6,7 @@ import sucessImg from '../../assets/images/background-login.svg';
 import Input from '../../components/Input';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
+import Checkbox from '../../components/Checkbox';
 
 const Login:React.FC = () => {
     const [email, setEmail] = useState("");
@@ -45,9 +46,9 @@ const Login:React.FC = () => {
                         />
 
                         <div className="password-options">
-                        <Input
+                        <Checkbox
                             name="remember"
-                            label="Lembre-se de mim"
+                            label="Lembrar-me"
                             value="{remember}"
                             onChange={(e) => setRemember(e.target.value)}
                             type="checkbox"
