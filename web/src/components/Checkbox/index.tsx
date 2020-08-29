@@ -15,13 +15,13 @@ const Checkbox : React.FC<InputProps> = (props, children) => {
     } = props;
 
     return (
-        <div className="checkbox-block">
+        <label className="checkbox-block">
             
             <input  id={name} type="checkbox" {...rest}/>
             <span className="custom-check"></span>
             <label htmlFor={name}>{label}</label>
             
-        </div>
+        </label>
     )
 }
 
