@@ -49,7 +49,12 @@ const MaterialInput: React.FC<InputProps> = (props, children) => {
                         className="eye"
                         onMouseDown={() => setIsPasswordState(false)}
                         onMouseUp={() => setIsPasswordState(true)}
-                        onMouseLeave={() => setIsPasswordState(true)}/>
+                        onMouseLeave={() => setIsPasswordState(true)}
+                        onTouchStart={() => setIsPasswordState(false)}
+                        onTouchEnd={() => setIsPasswordState(true)}
+                        onTouchMove={() => setIsPasswordState(true)}
+                        
+                        />
                 )}
             </div>
             </div>

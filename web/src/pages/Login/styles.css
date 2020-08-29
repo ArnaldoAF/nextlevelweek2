@@ -8,9 +8,14 @@
     width: 50vw;
     height: 100vh;
     background-color: var(--color-primary);
+    background-image: url("../../assets/images/background-login.svg");
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#logo-area-mobile {
+    display: none;
 }
 
 #login-area {
@@ -83,4 +88,33 @@ form h1 {
 
 .forgot-password:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 1100px) {
+    #logo-area-mobile {
+        display: flex;
+        background-color: var(--color-primary);
+        width: 100vw;
+        height: 15vh;
+        position: absolute;
+        top: 0;
+        background-image: url("../../assets/images/background-login.svg");
+        justify-content: center;
+    }
+    #logo-area {
+        display: none;
+    }
+    #login-area {
+        width: 10vw;
+    }
+    .form-login {
+        width: 80vw;
+    }
+    .login-footer {
+        width: 80vw;
+    }
+    #logo-container {
+        display: flex;
+        align-items: center;
+    }
 }

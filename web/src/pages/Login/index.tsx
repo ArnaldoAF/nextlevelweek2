@@ -18,11 +18,19 @@ const Login:React.FC = () => {
         <>
         <div id="content">
             <div id="logo-area">
-                <img src={sucessImg} alt=""/>
+                
                 <div id="logo-container">
                     
                     <img src={LogoImg} alt=""/>
                     <h2 >Sua plataforma de <br /> estudos online</h2>
+                </div>
+                
+            </div>
+            <div id="logo-area-mobile">
+                <div id="logo-container">
+                    <img src={LogoImg} alt=""/>
+                    
+                    
                 </div>
                 
             </div>
@@ -62,7 +70,7 @@ const Login:React.FC = () => {
 
                         </div> 
 
-                        <Button type="submit" disabled> Entrar</Button>
+                        <Button type="submit"> Entrar</Button>
 
                         
 
