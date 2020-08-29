@@ -57,12 +57,12 @@ const Login:React.FC = () => {
                             onChange={(e) => setRemember(e.target.value)}
                             type="checkbox"
                         />
-                        <p>Esqueci minha senha</p>
+                        <Link to="/" className="forgot-password">Esqueci minha senha</Link>
 
 
                         </div> 
 
-                        <Button type="submit"> Entrar</Button>
+                        <Button type="submit" disabled> Entrar</Button>
 
                         
 
