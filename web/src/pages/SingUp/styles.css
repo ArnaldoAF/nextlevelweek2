@@ -1,0 +1,134 @@
+#content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+#logo-area {
+    width: 50vw;
+    height: 100vh;
+    background-color: var(--color-primary);
+    background-image: url("../../assets/images/background-login.svg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo-area-mobile {
+    display: none;
+}
+
+#login-area {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+}
+
+#logo-container h2 {
+    color: var(--color-text-in-primary);
+    line-height: 3rem;
+    font-weight: 500;
+}
+
+#logo-container img {
+    max-width: 30rem;
+}
+
+#logo-area>img {
+    position: absolute;
+    z-index: 1;
+    flex: 1;
+    width: 50vw;
+    height: 70vh;
+}
+
+.password-options {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-footer {
+    display: flex;
+    justify-content: space-between;
+    width: 24vw;
+    margin-bottom: 2rem;
+}
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1;
+    width: 25vw;
+}
+
+form h1 {
+    color: var(--color-text-title);
+}
+
+#text-free {
+    font-size: 1.3rem;
+    color: var(--color-text-complement);
+}
+
+.form-login h1,
+.form-login h3 {
+    margin-bottom: 2rem;
+}
+
+.form-login h3 {
+    font-weight: 500;
+}
+
+.forgot-password {
+    font-size: 1.4rem;
+    color: var(--color-text-complement);
+    text-decoration: none;
+    margin-top: 1.4rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.partial-form {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+@media (max-width: 1100px) {
+    #logo-area-mobile {
+        display: flex;
+        background-color: var(--color-primary);
+        width: 100vw;
+        height: 15vh;
+        position: absolute;
+        top: 0;
+        background-image: url("../../assets/images/background-login.svg");
+        justify-content: center;
+    }
+    #logo-area {
+        display: none;
+    }
+    #login-area {
+        width: 10vw;
+    }
+    .form-login {
+        width: 80vw;
+        justify-content: center;
+    }
+    .login-footer {
+        width: 80vw;
+    }
+    #logo-container {
+        display: flex;
+        align-items: center;
+    }
+    .partial-form {
+        margin: 0;
+    }
+}
