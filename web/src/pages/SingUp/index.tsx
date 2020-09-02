@@ -31,7 +31,7 @@ const SingUp: React.FC = () => {
             <div id="login-area">
                 
 
-                <form className="form-login"> 
+                <form className="form-singup"> 
                     <Link to="/">
                         <img src={backIcon} alt=""/>
                     </Link>

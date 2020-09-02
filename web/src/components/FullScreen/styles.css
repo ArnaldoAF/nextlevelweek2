@@ -1,0 +1,33 @@
+.purple-background {
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-color: var(--color-primary);
+    background-image: url("../../assets/images/background-login.svg");
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fs-button {
+    min-width: 26rem;
+    text-decoration: none;
+    margin-top: 5rem;
+}
+
+#check {
+    margin-bottom: 4rem;
+}
+
+#fs-title {
+    color: var(--color-button-text);
+    font-size: 3em;
+}
+
+#fs-subtitle-1,
+#fs-subtitle-2 {
+    color: var(--color-text-in-primary);
+    text-align: center;
+    font-weight: 500;
+}

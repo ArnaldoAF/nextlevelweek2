@@ -6,6 +6,7 @@ import TeacherList from './pages/TeacherList';
 import TeacherForm from './pages/TeacherForm';
 import Login from './pages/Login';
 import SingUp from './pages/SingUp';
+import FullScreen from './components/FullScreen';
 
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
             <Route path="/home" component={Landing} />
             <Route path="/study" component={TeacherList}/>
             <Route path="/give-classes" component={TeacherForm}/> 
+            <Route path="/fullscreen" component={FullScreen}/> 
         </BrowserRouter>
     )
 }

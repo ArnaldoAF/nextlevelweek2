@@ -1,4 +1,4 @@
-button {
+.button {
     width: 100%;
     height: 5.6rem;
     background: var(--color-secundary);
@@ -15,11 +15,11 @@ button {
     margin-top: 3.2rem;
 }
 
-button:hover {
+.button:hover {
     background: var(--color-secundary-dark);
 }
 
-button:disabled {
+.button:disabled {
     width: 100%;
     height: 5.6rem;
     background: var(--color-input-disabled);

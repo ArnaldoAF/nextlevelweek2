@@ -58,7 +58,7 @@
     margin-bottom: 2rem;
 }
 
-.form-login {
+.form-singup {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -75,12 +75,12 @@ form h1 {
     color: var(--color-text-complement);
 }
 
-.form-login h1,
-.form-login h3 {
+.form-singup h1,
+.form-singup h3 {
     margin-bottom: 2rem;
 }
 
-.form-login h3 {
+.form-singup h3 {
     font-weight: 500;
 }
 
@@ -117,7 +117,7 @@ form h1 {
     #login-area {
         width: 10vw;
     }
-    .form-login {
+    .form-singup {
         width: 80vw;
         justify-content: center;
     }
