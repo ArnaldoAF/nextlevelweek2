@@ -1,24 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+import api from '../../services/api';
 
 import './styles.css';
 import LogoImg from '../../assets/images/logo.svg';
-import sucessImg from '../../assets/images/background-login.svg';
-import Input from '../../components/Input';
-import { Link } from 'react-router-dom';
-import Button from '../../components/Button';
-import Checkbox from '../../components/Checkbox';
-import MaterialInput from '../../components/MaterialInput';
 import backIcon from '../../assets/images/icons/back.svg';
 
+
+import Button from '../../components/Button';
+import MaterialInput from '../../components/MaterialInput';
+
+import  {isBlank,isEmpty,isEmptyOrWhiteSpace} from '../../utils/StringCheck';
+import FullScreen from '../../components/FullScreen';
+
 const SingUp: React.FC = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [remember, setRemember] = useState("false");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [isDisabled, setisDisabled] = useState(false);
+
+    function handleSingUp(e: FormEvent) {
+        e.preventDefault();
+        const data = {
+            name: name.trim(),
+            lastName: lastName.trim(),
+            email: email.trim(),
+            password:password.trim()
+        }
+
+
+        api.post('register', data).then( response => {
+            setSuccess(true);
+        }).catch((e) => {
+            alert(e);
+        });
+    }
+
+    useEffect(() => {
+        setisDisabled((
+            isEmptyOrWhiteSpace(name) ||
+            isEmptyOrWhiteSpace(lastName) ||
+            isEmptyOrWhiteSpace(email) ||
+            isEmptyOrWhiteSpace(password)
+        ));
+        console.log(isDisabled);
+    },[name,lastName,email,password]);
+
     return (
         <>
-        <div id="content">
+        {(success) ? (
+            <>
+            <FullScreen 
+                title="Cadastro Concluído"
+                subtitle1="Agora você faz parte da plataforma da Proffy"
+                subtitle2="Tenha uma ótima experiência"
+                buttonText="Fazer Login"
+                buttonLink="/"
+
+            />
+            </>
+        ):(
+            <>
+            <div id="content">
             
             <div id="logo-area-mobile">
                 <div id="logo-container">
@@ -31,7 +77,7 @@ const SingUp: React.FC = () => {
             <div id="login-area">
                 
 
-                <form className="form-singup"> 
+                <form className="form-singup" onSubmit={handleSingUp}> 
                     <Link to="/">
                         <img src={backIcon} alt=""/>
                     </Link>
@@ -44,6 +90,7 @@ const SingUp: React.FC = () => {
                             label="Nome"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            required
                         />
 
                         <MaterialInput
@@ -51,12 +98,15 @@ const SingUp: React.FC = () => {
                             label="SobreNome"
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
+                            required
                         />
                         <MaterialInput
                             name="email"
                             label="E-mail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            type="email"
+                            required
                         />
 
                         <MaterialInput
@@ -64,6 +114,7 @@ const SingUp: React.FC = () => {
                             label="Senha"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                             type="password"
                         />
                         </div>
@@ -74,7 +125,7 @@ const SingUp: React.FC = () => {
 
                         
 
-                        <Button type="submit"> Cadastrar</Button>
+                        <Button type="submit" disabled={isDisabled}> Cadastrar</Button>
                         </div>
 
                         
@@ -93,6 +144,14 @@ const SingUp: React.FC = () => {
                 
             </div>
         </div>
+
+            </>
+        )}
+
+
+        
+        
+        
         </>
     )
 }

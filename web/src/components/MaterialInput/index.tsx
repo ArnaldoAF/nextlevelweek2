@@ -37,8 +37,7 @@ const MaterialInput: React.FC<InputProps> = (props, children) => {
                     } 
                     id={name} 
                     className="input" 
-                    pattern=".+" 
-                    required 
+                    pattern=".+"  
                     {...rest}/>
                 
                 <label htmlFor={name} className="label">{label}</label>
