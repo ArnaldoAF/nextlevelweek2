@@ -17,6 +17,7 @@ function generateToken(userId: string) {
 
 export default class UserController {
     async register(request: Request, response: Response) {
+        console.log("---------------------------------------------------");
         console.log("UserController - Register")
         const { name, lastName, email, password } = request.body;
 
@@ -55,8 +56,10 @@ export default class UserController {
     }
     
     async login(request: Request, response: Response) {
+        console.log("---------------------------------------------------");
+        console.log("UserController - Login");
+        
         const { email, password} = request.body;
-        console.log("UserController - Login")
         try {
             var userDataBase = await db('users').where('email','=', email).select('*');
             
@@ -89,6 +92,9 @@ export default class UserController {
     }
 
     async me(request: Request, response: Response) {
+        console.log("---------------------------------------------------");
+        console.log("UserController - Me");
+
         const { userId} = request.body;
         try {
             const user = await db('users').where('id','=',userId).select('*');

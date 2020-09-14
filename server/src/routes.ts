@@ -27,12 +27,13 @@ routes.post('/users', (request, response) => {
 });
 
 routes.post('/classes', classesController.create);
-routes.get('/classes', classesController.index);
+
 routes.post('/connections', connectionController.create);
 routes.get('/connections', connectionController.index);
 routes.post('/register', userController.register);
 routes.post('/login', userController.login);
 routes.use(authMiddleware);
 routes.get('/me', userController.me);
+routes.get('/classes', classesController.index);
 
 export default routes;

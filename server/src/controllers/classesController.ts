@@ -14,8 +14,10 @@ interface ScheduleItemIterface {
 
 export default class ClassController {
     async index(request: Request, response: Response) {
+        console.log("---------------------------------------------------");
+        console.log("ClassController - index ");
+
         const filters = request.query;
-        console.log("INDEX ClassController");
         console.log(request.body);
         console.log(filters);
 
@@ -49,6 +51,9 @@ export default class ClassController {
     }
     
     async create(request:Request, response:Response) {
+        console.log("---------------------------------------------------");
+        console.log("ClassController - create");
+
         const {
             name,
             avatar,
@@ -58,7 +63,6 @@ export default class ClassController {
             cost,
             schedule,
         } = request.body;
-        console.log("create ClassController");
         
         console.log(request.body);
     
