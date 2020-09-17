@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
+import {useHistory} from 'react-router-dom';
 
 import './styles.css';
 import LogoImg from '../../assets/images/logo.svg';
@@ -8,11 +9,35 @@ import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
 import MaterialInput from '../../components/MaterialInput';
+import api from '../../services/api';
+import { login } from '../../services/auth';
 
 const Login:React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [remember, setRemember] = useState("false");
+
+    const history = useHistory();
+
+     async function handleLogin(e:FormEvent) {
+        e.preventDefault();
+
+        const data = {
+            email, 
+            password
+        }
+
+        try {
+            const response = await api.post("/login", data);
+            console.log("reponse", response);
+            login(response.data.token);
+            history.push("/home");
+
+        } catch(err) {
+            console.log("erro login", err);
+        }
+
+    }
     
     return (
         <>
@@ -37,7 +62,7 @@ const Login:React.FC = () => {
             <div id="login-area">
                 
 
-                <form className="form-login"> 
+                <form className="form-login" onSubmit={handleLogin}> 
                     <h1>Fazer Login</h1>
                     <div>
                         <MaterialInput
