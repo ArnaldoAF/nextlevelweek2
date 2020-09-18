@@ -3,6 +3,7 @@ import db from '../database/connections';
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import getUserIdByToken from '../utils/getUserIdByToken';
 
 function compareHash(hash: string, base: string){
     return bcrypt.compare(hash, base);
@@ -95,13 +96,23 @@ export default class UserController {
         console.log("---------------------------------------------------");
         console.log("UserController - Me");
 
-        const { userId} = request.body;
+        var userId = {};
+
+        const authHeader = request.headers.authorization;
+        if(authHeader){
+            const [scheme, token] = authHeader.split(' ');
+            console.log("token", token);
+            userId = await getUserIdByToken(token);
+        }
+        
+        console.log("userId", userId);
         try {
             const user = await db('users').where('id','=',userId).select('*');
 
             if(!user) return response.status(400).json({message: "User not fouded"});
+            console.log("user", user);
     
-            return response.status(200).json(user);
+            return response.status(200).json(user[0]);
         } catch(err) {
             console.log(err);
             return response.status(400).json({

@@ -9,6 +9,7 @@ import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 
 import './styles.css';
 import api from '../../services/api';
+import UserHeader from '../../components/UserHeader';
 
 
 
@@ -27,6 +28,7 @@ const Landing: React.FC = () =>{
 
     return (
         <div id="page-landing">
+            <UserHeader />
             <div id="page-landing-content" className="container">
                 <div className="logo-container">
                     <img src={logoImg} alt="logo"/>

@@ -15,7 +15,7 @@ export default async (request: Request, response: Response, next: NextFunction) 
         return response.status(401).json({ message: "No toke Providen"});
     }
 
-    const [scheme, token] = authHeader.split('  ');
+    const [scheme, token] = authHeader.split(' ');
     console.log("scheme", scheme);
     console.log("token", token);
 
@@ -24,6 +24,8 @@ export default async (request: Request, response: Response, next: NextFunction) 
         console.log("try");
         var decoded = await promisify(jwt.verify)(token, "secret");
         console.log("decoded", decoded);
+        var id = JSON.parse(JSON.stringify(decoded));
+        console.log("id", id.id); 
 
         userId = decoded;
 
