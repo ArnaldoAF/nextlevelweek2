@@ -4,6 +4,7 @@ import api from '../../services/api';
 
 import "./styles.css";
 import logoffButtom from "../../assets/images/icons/logoffButtom.svg";
+import defaultProfile from "../../assets/images/default-profile.svg";
 import { logout } from '../../services/auth';
 import { useHistory } from 'react-router-dom';
 
@@ -23,8 +24,8 @@ interface UserProps {
 const UserHeader: React.FC = () => {
     const [userInfo, setUserInfo] =  useState({
         id: 0,
-        name:" string,",
-        avatar:" string",
+        name:" ",
+        avatar:" ",
         whatsapp:"string,",
         bio:"string,",
         email:"string,",
@@ -33,33 +34,37 @@ const UserHeader: React.FC = () => {
     });
     const history = useHistory();
 
-    useEffect( () => {
+    useEffect(  () => {
+        
         try{
-            api.get("/me").then((response) => {
+             api.get("/me").then((response) => {
                 console.log(response.data);
                 var user = response.data;
                 setUserInfo(user);
             
         }).catch((response) => {
             console.log("catch", response);
-            logout();
-            history.push("/");
+            handleLogoff();
         })
         } catch(err) {
             console.log("ERRO AO RECUPERAR / ME", err);
-            logout();
-            history.push("/");
+            handleLogoff();
         }
     },[]);
+
+    function handleLogoff() {
+        logout(); 
+        history.push("/");
+    }
 
     return (
         <header className="user-header">
             <div className="user-header-content">
                 <div className="name-box">
-                    <img src={userInfo?.avatar} alt=""/>
+                    <img src={userInfo?.avatar!=" " ? userInfo?.avatar : defaultProfile} alt=""/>
                     <p> {userInfo?.name}</p> 
                 </div>
-                <div className="logoff-box">
+                <div className="logoff-box" onClick={handleLogoff}>
                     <img src={logoffButtom} alt=""/>
                 </div>
             </div>
