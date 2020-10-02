@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 
 import "./styles.css";
+import logoffButtom from "../../assets/images/icons/logoffButtom.svg";
 
 interface UserProps {
     id: number,
@@ -43,9 +44,17 @@ const UserHeader: React.FC = () => {
     },[]);
 
     return (
-        <>
-        UserHeader {userInfo?.name}
-        </>
+        <header className="user-header">
+            <div className="user-header-content">
+                <div className="name-box">
+                    <img src={userInfo?.avatar} alt=""/>
+                    <p> {userInfo?.name}</p> 
+                </div>
+                <div className="logoff-box">
+                    <img src={logoffButtom} alt=""/>
+                </div>
+            </div>
+        </header>
     )
 }
 

@@ -1,6 +1,6 @@
 #page-landing {
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,6 +14,8 @@
 
 .hero-iamge {
     width: 100%;
+    max-width: 100vw;
+    height: 38vw;
 }
 
 .logo-container {

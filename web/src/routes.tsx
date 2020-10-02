@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import SingUp from './pages/SingUp';
 import FullScreen from './components/FullScreen';
 import { isAutheticated } from './services/auth';
+import UserHeader from './components/UserHeader';
 
 interface PrivateRouteProps extends RouteProps {
     // tslint:disable-next-line:no-any
@@ -18,6 +19,8 @@ const PrivateRoute = (props:PrivateRouteProps) => {
     const { component: Component, ...rest} = props;
 
     return (
+        <>
+        <UserHeader />
         <Route 
             {...rest}
             render = { routerProps => 
@@ -29,6 +32,7 @@ const PrivateRoute = (props:PrivateRouteProps) => {
                 )
             }
         />
+        </>
     )
 }
 
@@ -43,6 +47,7 @@ function Router() {
                 <PrivateRoute path="/give-classes" component={TeacherForm}/> 
                 <Route path="*" component={() => <h1>Page not found</h1>} />
             </Switch>
+            
         </BrowserRouter>
     )
 }

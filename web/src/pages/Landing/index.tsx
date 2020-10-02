@@ -28,7 +28,6 @@ const Landing: React.FC = () =>{
 
     return (
         <div id="page-landing">
-            <UserHeader />
             <div id="page-landing-content" className="container">
                 <div className="logo-container">
                     <img src={logoImg} alt="logo"/>
