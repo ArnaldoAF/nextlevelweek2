@@ -10,12 +10,12 @@ import FullScreen from './components/FullScreen';
 import { isAutheticated } from './services/auth';
 import UserHeader from './components/UserHeader';
 
-interface PrivateRouteProps extends RouteProps {
+interface RoutePropsCustom extends RouteProps {
     // tslint:disable-next-line:no-any
     component: any;
 }
 
-const PrivateRoute = (props:PrivateRouteProps) => {
+const PrivateRoute = (props:RoutePropsCustom) => {
     const { component: Component, ...rest} = props;
 
     return (
@@ -36,12 +36,34 @@ const PrivateRoute = (props:PrivateRouteProps) => {
     )
 }
 
+const PublicRoute = (props: RoutePropsCustom) => {
+    const { component: Component, ...rest} = props;
+
+    return (
+        <>
+            <Route 
+                {...rest}
+                render = { routerProps => 
+                    isAutheticated() ? (
+                        <Redirect to={{ pathname:"/home", state: {
+                            from : routerProps.location
+                        }}} />
+                    ) : (
+                        <Component {...routerProps} /> 
+                    )
+                
+                }
+            />
+        </>
+    )
+}
+
 function Router() {
     return(
         <BrowserRouter>
             <Switch>
-                <Route path="/" component={Login} exact/>
-                <Route path="/singup" component={SingUp} />
+                <PublicRoute path="/" component={Login} exact/>
+                <PublicRoute path="/singup" component={SingUp} />
                 <PrivateRoute path="/home" component={Landing} />
                 <PrivateRoute path="/study" component={TeacherList}/>
                 <PrivateRoute path="/give-classes" component={TeacherForm}/> 

@@ -4,6 +4,8 @@ import api from '../../services/api';
 
 import "./styles.css";
 import logoffButtom from "../../assets/images/icons/logoffButtom.svg";
+import { logout } from '../../services/auth';
+import { useHistory } from 'react-router-dom';
 
 interface UserProps {
     id: number,
@@ -29,17 +31,24 @@ const UserHeader: React.FC = () => {
         password:"string,",
         created_at:" string"
     });
+    const history = useHistory();
 
     useEffect( () => {
         try{
-        api.get("/me").then((response) => {
-            console.log(response.data);
-            var user = response.data;
-            setUserInfo(user);
+            api.get("/me").then((response) => {
+                console.log(response.data);
+                var user = response.data;
+                setUserInfo(user);
             
+        }).catch((response) => {
+            console.log("catch", response);
+            logout();
+            history.push("/");
         })
         } catch(err) {
             console.log("ERRO AO RECUPERAR / ME", err);
+            logout();
+            history.push("/");
         }
     },[]);
 

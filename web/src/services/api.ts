@@ -3,6 +3,9 @@ import { getToken} from './auth';
 
 const api = axios.create({
     baseURL:'http://localhost:3333',
+    validateStatus: function (status) {
+        return status >= 200 && status<300;
+    }
 });
 
 api.interceptors.request.use(async config => {
