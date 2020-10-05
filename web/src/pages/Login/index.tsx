@@ -12,23 +12,32 @@ import MaterialInput from '../../components/MaterialInput';
 import api from '../../services/api';
 import { login } from '../../services/auth';
 
+import {useForm, Controller} from 'react-hook-form';
+
+interface IFormInputs {
+    email: string;
+    password: string;
+}
+
 const Login:React.FC = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState<string>();
+    const [password, setPassword] = useState<string>();
     const [remember, setRemember] = useState("false");
+    const { register, errors, handleSubmit, control} = useForm<IFormInputs>();
 
     const history = useHistory();
 
      async function handleLogin(e:FormEvent) {
         e.preventDefault();
+        //console.log(data);
 
-        const data = {
+        const obj = {
             email, 
             password
         }
 
         try {
-            const response = await api.post("/login", data);
+            const response = await api.post("/login", obj);
             console.log("reponse", response);
             login(response.data.token);
             history.push("/home");
@@ -43,25 +52,19 @@ const Login:React.FC = () => {
         <>
         <div id="content">
             <div id="logo-area">
-                
                 <div id="logo-container">
                     
                     <img src={LogoImg} alt=""/>
                     <h2 >Sua plataforma de <br /> estudos online</h2>
                 </div>
-                
             </div>
             <div id="logo-area-mobile">
                 <div id="logo-container">
                     <img src={LogoImg} alt=""/>
-                    
-                    
                 </div>
-                
             </div>
-            <div id="login-area">
-                
 
+            <div id="login-area">
                 <form className="form-login" onSubmit={handleLogin}> 
                     <h1>Fazer Login</h1>
                     <div>
@@ -70,6 +73,8 @@ const Login:React.FC = () => {
                             label="E-mail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            type="email"
+                            required
                         />
 
                         <MaterialInput
@@ -78,8 +83,11 @@ const Login:React.FC = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             type="password"
+                            required
                         />
-                        </div>
+                    </div>
+                        {errors.email && "Digite o email"}
+                        {errors.password && "Digite a senha"}
 
 
                         <div className="password-options">

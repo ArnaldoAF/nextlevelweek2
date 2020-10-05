@@ -18,6 +18,7 @@ const MaterialInput: React.FC<InputProps> = (props, children) => {
         type,
         ...rest
     } =props;
+    
 
     const [isPasswordState, setIsPasswordState] = useState(type === "password");
 
@@ -36,8 +37,10 @@ const MaterialInput: React.FC<InputProps> = (props, children) => {
                                             :   (type || "text")
                     } 
                     id={name} 
+                    name={name}
                     className="input" 
                     pattern=".+"  
+                    placeholder=" "
                     {...rest}/>
                 
                 <label htmlFor={name} className="label">{label}</label>
