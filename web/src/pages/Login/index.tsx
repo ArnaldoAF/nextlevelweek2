@@ -12,7 +12,9 @@ import MaterialInput from '../../components/MaterialInput';
 import api from '../../services/api';
 import { login } from '../../services/auth';
 
+
 import {useForm, Controller} from 'react-hook-form';
+import LoadingSpinner from '../../components/LoadingSpiiner';
 
 interface IFormInputs {
     email: string;
@@ -24,6 +26,8 @@ const Login:React.FC = () => {
     const [password, setPassword] = useState<string>();
     const [remember, setRemember] = useState("false");
     const { register, errors, handleSubmit, control} = useForm<IFormInputs>();
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const history = useHistory();
 
@@ -36,15 +40,24 @@ const Login:React.FC = () => {
             password
         }
 
-        try {
-            const response = await api.post("/login", obj);
+        setIsLoading(true);
+       
+        await api.post("/login", obj).then(response => {
             console.log("reponse", response);
             login(response.data.token);
             history.push("/home");
+        }).catch(err => {
+            console.log("erro login",{err});
+            console.log("erro login", err.data);
+            console.log("erro login", err?.response?.data?.message);
+            setErrorMessage(err?.response?.data?.message);
 
-        } catch(err) {
-            console.log("erro login", err);
-        }
+        });
+
+        setIsLoading(false);
+            
+
+        
 
     }
     
@@ -86,7 +99,8 @@ const Login:React.FC = () => {
                             required
                         />
                     </div>
-                        {errors.email && "Digite o email"}
+                        {errorMessage && <h4>{errorMessage} <br /></h4>} 
+                        {errors.email && "Digite o email"} 
                         {errors.password && "Digite a senha"}
 
 
@@ -103,8 +117,11 @@ const Login:React.FC = () => {
 
                         </div> 
 
-                        <Button type="submit"> Entrar</Button>
-
+                        <Button type="submit" disabled={isLoading}> 
+                            {isLoading ? 
+                                <LoadingSpinner size={3}/> 
+                                : "Entrar"}
+                            </Button>
                         
 
 
