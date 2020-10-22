@@ -12,7 +12,6 @@ const connectionController = new ConnectionController();
 const userController = new UserController();
 
 
-
 routes.get('/test', (request, response) => {
     console.log('Acessou a rota');
 

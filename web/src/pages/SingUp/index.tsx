@@ -13,6 +13,15 @@ import MaterialInput from '../../components/MaterialInput';
 
 import  {isBlank,isEmpty,isEmptyOrWhiteSpace} from '../../utils/StringCheck';
 import FullScreen from '../../components/FullScreen';
+import { useForm } from 'react-hook-form';
+import LoadingSpinner from '../../components/LoadingSpiiner';
+
+interface IFormInputs {
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
 
 const SingUp: React.FC = () => {
     const [name, setName] = useState("");
@@ -21,33 +30,30 @@ const SingUp: React.FC = () => {
     const [password, setPassword] = useState("");
     const [success, setSuccess] = useState(false);
     const [isDisabled, setisDisabled] = useState(false);
+    const { register, errors, handleSubmit, control} = useForm<IFormInputs>();
+    
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
-    function handleSingUp(e: FormEvent) {
-        e.preventDefault();
-        const data = {
+    function handleSingUp(data:IFormInputs) {
+        //e.preventDefault();
+        const obj = {
             name: name.trim(),
             lastName: lastName.trim(),
             email: email.trim(),
             password:password.trim()
         }
+        setIsLoading(true);
 
-
-        api.post('register', data).then( response => {
+        api.post('register', obj).then( response => {
             setSuccess(true);
-        }).catch((e) => {
-            alert(e);
+        }).catch((err) => {
+            setErrorMessage(err?.response?.data?.message);
         });
+        setIsLoading(false);
     }
 
-    useEffect(() => {
-        setisDisabled((
-            isEmptyOrWhiteSpace(name) ||
-            isEmptyOrWhiteSpace(lastName) ||
-            isEmptyOrWhiteSpace(email) ||
-            isEmptyOrWhiteSpace(password)
-        ));
-        console.log(isDisabled);
-    },[name,lastName,email,password]);
+    
 
     return (
         <>
@@ -77,7 +83,7 @@ const SingUp: React.FC = () => {
             <div id="login-area">
                 
 
-                <form className="form-singup" onSubmit={handleSingUp}> 
+                <form className="form-singup" onSubmit={handleSubmit(handleSingUp)}> 
                     <Link to="/">
                         <img src={backIcon} alt=""/>
                     </Link>
@@ -85,52 +91,52 @@ const SingUp: React.FC = () => {
                     <h1>Cadastro</h1>
                     <h3>Preencha os dados abaixo <br /> para começar</h3>
                     <div > 
-                    <MaterialInput
-                            name="name"
-                            label="Nome"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
+                        <MaterialInput
+                                name="name"
+                                label="Nome"
+                                onChange={(e) => setName(e.target.value)}
+                                ref={register({required:true, minLength: 3})}
+                                
                         />
 
                         <MaterialInput
-                            name="lastname"
+                            name="lastName"
                             label="SobreNome"
-                            value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
-                            required
+                            ref={register({required:true, minLength: 3})}
+                            
                         />
                         <MaterialInput
                             name="email"
                             label="E-mail"
-                            value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            ref={register({required:true, pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/})}
                             type="email"
-                            required
+                            
                         />
 
                         <MaterialInput
                             name="password"
                             label="Senha"
-                            value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            required
+                            ref={register({required:true})}
+                            
                             type="password"
                         />
                         </div>
 
+                        {errorMessage && <h4>{errorMessage} <br /></h4>} 
+                        {errors.name && <h4>Confira o Nome <br /></h4>} 
+                        {errors.lastName && <h4>Confira o SobreNome <br /></h4>}
+                        {errors.email && <h4>Confira o e-mail <br /></h4>} 
+                        {errors.password && <h4>Digite a Senha <br /></h4>}
 
-                        
-
-
-                        
-
-                        <Button type="submit" disabled={isDisabled}> Cadastrar</Button>
+                        <Button type="submit" disabled={isDisabled}> 
+                            {isLoading ? 
+                                    <LoadingSpinner size={3}/> 
+                                    : "Cdastrar"}
+                        </Button>
                         </div>
-
-                        
-
-
                 </form>
                 
             </div>

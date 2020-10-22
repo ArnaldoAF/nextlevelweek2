@@ -5,15 +5,22 @@ import './styles.css';
 import eyeClosedIcon from '../../assets/images/icons/eye-closed.svg';
 import eyeOpenIcon from '../../assets/images/icons/eye-open.svg';
 
+type RefReturn =
+  | string
+  | ((instance: HTMLInputElement | null) => void)
+  | React.RefObject<HTMLInputElement>
+  | null
+  | undefined;
+
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
     name: string;
     type?: string;
 }
 
-const MaterialInput: React.FC<InputProps> = (props, children) => {
+const MaterialInput = React.forwardRef<HTMLInputElement,InputProps>((props, ref) => {
     const {
-        name,    
+        name,
         label,
         type,
         ...rest
@@ -41,6 +48,7 @@ const MaterialInput: React.FC<InputProps> = (props, children) => {
                     className="input" 
                     pattern=".+"  
                     placeholder=" "
+                    ref={ref}
                     {...rest}/>
                 
                 <label htmlFor={name} className="label">{label}</label>
@@ -61,6 +69,6 @@ const MaterialInput: React.FC<InputProps> = (props, children) => {
             </div>
             </div>
     )
-}
+});
 
 export default MaterialInput;

@@ -62,7 +62,6 @@
     border-left: 2px solid var(--color-primary-light);
 }
 
-.input:valid+.label,
 .input:focus+.label,
 .input:not(:placeholder-shown)+label {
     color: #26a69a;

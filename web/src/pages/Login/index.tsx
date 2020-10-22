@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import {useHistory} from 'react-router-dom';
 
 import './styles.css';
@@ -31,14 +31,17 @@ const Login:React.FC = () => {
 
     const history = useHistory();
 
-     async function handleLogin(e:FormEvent) {
-        e.preventDefault();
-        //console.log(data);
+     async function handleLogin(data:IFormInputs) {
+        //e.preventDefault();
+        console.log(data);
+        setEmail(data.email);
+        setPassword(data.password);
 
         const obj = {
             email, 
             password
         }
+        console.log("obj", obj);
 
         setIsLoading(true);
        
@@ -60,6 +63,13 @@ const Login:React.FC = () => {
         
 
     }
+
+    
+
+    useEffect(()=>{ 
+        console.log(email);
+
+    },[email]);
     
     return (
         <>
@@ -78,30 +88,30 @@ const Login:React.FC = () => {
             </div>
 
             <div id="login-area">
-                <form className="form-login" onSubmit={handleLogin}> 
+                <form className="form-login" onSubmit={handleSubmit(handleLogin)}> 
                     <h1>Fazer Login</h1>
                     <div>
                         <MaterialInput
                             name="email"
                             label="E-mail"
-                            value={email}
+                            type="text"
                             onChange={(e) => setEmail(e.target.value)}
-                            type="email"
-                            required
+                            ref={register({required:true, pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/})}
+                            
                         />
 
                         <MaterialInput
                             name="password"
                             label="Senha"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
                             type="password"
-                            required
+                            onChange={(e) => setPassword(e.target.value)}
+                            ref={register({required:true})}
+                            
                         />
                     </div>
                         {errorMessage && <h4>{errorMessage} <br /></h4>} 
-                        {errors.email && "Digite o email"} 
-                        {errors.password && "Digite a senha"}
+                        {errors.email && <h4>Confira o e-mail <br /></h4>} 
+                        {errors.password && <h4>Digite a senha <br /></h4>}
 
 
                         <div className="password-options">
@@ -121,7 +131,7 @@ const Login:React.FC = () => {
                             {isLoading ? 
                                 <LoadingSpinner size={3}/> 
                                 : "Entrar"}
-                            </Button>
+                        </Button>
                         
 
 
